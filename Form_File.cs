@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Interpret_Interface
@@ -17,24 +10,20 @@ namespace Interpret_Interface
             InitializeComponent();
         }
 
-        private void Button_Receive_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Button_Send_Click(object sender, EventArgs e)
-        {
-
-        }
+        public File currentFile;
 
         public void SetText(string text)
         {
-            Text_FileContents.Text = text;
+            File file = new(Text_FileContents)
+            {
+                Text = text
+            };
+
         }
 
-        public void SetDropdown(DataType type)
+        public string GetText()
         {
-            Dropdown_DataType.Text = type.ToString();
+            return new File(Text_FileContents).Text;
         }
 
         public enum DataType
@@ -42,6 +31,59 @@ namespace Interpret_Interface
             Waypoints,
             Routes,
             Tracks
+        }
+
+        public struct File
+        {
+            private RichTextBox richTextBox;
+
+            public File(RichTextBox rtb)
+            {
+                richTextBox = rtb;
+            }
+
+            public readonly string Text
+            {
+                get
+                {
+                    return richTextBox.Text;
+                }
+                set
+                {
+                    richTextBox.Text = value;
+                }
+            }
+        }
+
+        public void Cut()
+        {
+            if (ActiveControl is TextBox Text_FileContents)
+            {
+                if (!Text_FileContents.SelectionLength.Equals(0))
+                {
+                    Clipboard.SetText(Text_FileContents.SelectedText);
+                    Text_FileContents.SelectedText = "";
+                }
+            }
+        }
+
+        public void Copy()
+        {
+            if (ActiveControl is TextBox Text_FileContents)
+            {
+                if (!Text_FileContents.SelectionLength.Equals(0))
+                {
+                    Clipboard.SetText(Text_FileContents.SelectedText);
+                }
+            }
+        }
+
+        public void Paste()
+        {
+            if (ActiveControl is TextBox Text_FileContents)
+            {
+                Text_FileContents.Paste(Clipboard.GetText());
+            }
         }
     }
 }

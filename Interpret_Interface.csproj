@@ -8,6 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Interpret_Interface</RootNamespace>
     <AssemblyName>Interpret_Interface</AssemblyName>
+	<LangVersion>11.0</LangVersion>
     <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

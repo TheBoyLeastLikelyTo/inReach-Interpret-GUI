@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
+using System.Collections.Generic;
+using System.Windows.Input;
 
 namespace Interpret_Interface
 {
@@ -14,12 +10,15 @@ namespace Interpret_Interface
     {
         private int childFormNumber = 0;
 
+        private Stack<ICommand> undoStack = new Stack<ICommand>();
+        private Stack<ICommand> redoStack = new Stack<ICommand>();
+
         public Form_Main()
         {
             InitializeComponent();
         }
 
-        private void ShowNewForm(object sender, EventArgs e)
+        private void NewFile_Click(object sender, EventArgs e)
         {
             Form childForm = new Form_File
             {
@@ -29,53 +28,41 @@ namespace Interpret_Interface
             childForm.Show();
         }
 
-        private void OpenFile(object sender, EventArgs e)
+        private void CloseFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            openFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (openFileDialog.ShowDialog(this) == DialogResult.OK)
+            if (ActiveMdiChild is Form_File childForm)
             {
-                string FileName = openFileDialog.FileName;
-            }
-        }
-
-        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            saveFileDialog.Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*";
-            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-            {
-                string FileName = saveFileDialog.FileName;
+                childForm.Close();
             }
         }
 
         private void ExitToolsStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void CutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ActiveMdiChild is Form_File childForm)
+            {
+                childForm.Cut();
+            }
         }
 
         private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (ActiveMdiChild is Form_File childForm)
+            {
+                childForm.Copy();
+            }
         }
 
         private void PasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-        }
-
-        private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
-        }
-
-        private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+            if (ActiveMdiChild is Form_File childForm)
+            {
+                childForm.Paste();
+            }
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,34 +93,48 @@ namespace Interpret_Interface
             }
         }
 
-        private void Menu_NewWaypoints_Click(object sender, EventArgs e)
+        private void Open_FromFile_Click(object sender, EventArgs e)
         {
-            Form childForm = new Form_File
+            OpenFileDialog openFileDialog = new()
             {
-                MdiParent = this,
-                Text = "new Waypoint " + childFormNumber++
+                Filter = "Text Files|*.txt|All Files|*.*"
             };
-            childForm.Show();
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                string fileName = openFileDialog.FileName;
+
+                Form_File childForm = new Form_File
+                {
+                    MdiParent = this,
+                    Text = Path.GetFileName(fileName)
+                };
+                childForm.Show();
+
+                string fileContent = File.ReadAllText(fileName);
+                childForm.SetText(fileContent);
+            }
         }
 
-        private void Menu_NewRoute_Click(object sender, EventArgs e)
+        private void Save_ToFile_Click(object sender, EventArgs e)
         {
-            Form childForm = new Form_File
+            SaveFileDialog saveFileDialog = new()
             {
-                MdiParent = this,
-                Text = "new Route " + childFormNumber++,
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Personal),
+                Filter = "Text Files (*.txt)|*.txt|All Files (*.*)|*.*"
             };
-            childForm.Show();
-        }
+            if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+            {
+                string FileName = saveFileDialog.FileName;
 
-        private void Menu_NewTracks_Click(object sender, EventArgs e)
-        {
-            Form childForm = new Form_File
-            {
-                MdiParent = this,
-                Text = "new Track " + childFormNumber++
-            };
-            childForm.Show();
+                if (ActiveMdiChild is Form_File childForm)
+                {
+                    string fileContents = childForm.GetText();
+                    File.WriteAllText(FileName, fileContents);
+
+                    childForm.Text = Path.GetFileName(FileName);
+                }
+            }
         }
     }
 }
