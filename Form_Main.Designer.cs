@@ -31,7 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_Main));
             this.Main_Status = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
+            this.Text_Status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.Button_NewFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,6 +41,7 @@
             this.Button_SaveFile = new System.Windows.Forms.ToolStripMenuItem();
             this.Save_ToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.Save_ToDevice = new System.Windows.Forms.ToolStripMenuItem();
+            this.Button_SaveAsFile = new System.Windows.Forms.ToolStripMenuItem();
             this.Button_CloseFile = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.Button_Exit = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,7 +71,7 @@
             // 
             this.Main_Status.ImageScalingSize = new System.Drawing.Size(24, 24);
             this.Main_Status.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel});
+            this.Text_Status});
             this.Main_Status.Location = new System.Drawing.Point(0, 665);
             this.Main_Status.Name = "Main_Status";
             this.Main_Status.Padding = new System.Windows.Forms.Padding(2, 0, 21, 0);
@@ -78,11 +79,11 @@
             this.Main_Status.TabIndex = 2;
             this.Main_Status.Text = "StatusStrip";
             // 
-            // toolStripStatusLabel
+            // Text_Status
             // 
-            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
-            this.toolStripStatusLabel.Size = new System.Drawing.Size(60, 25);
-            this.toolStripStatusLabel.Text = "Status";
+            this.Text_Status.Name = "Text_Status";
+            this.Text_Status.Size = new System.Drawing.Size(60, 25);
+            this.Text_Status.Text = "Status";
             // 
             // fileMenu
             // 
@@ -90,6 +91,7 @@
             this.Button_NewFile,
             this.Button_OpenFile,
             this.Button_SaveFile,
+            this.Button_SaveAsFile,
             this.Button_CloseFile,
             this.toolStripSeparator3,
             this.Button_Exit});
@@ -104,7 +106,7 @@
             this.Button_NewFile.ImageTransparentColor = System.Drawing.Color.Black;
             this.Button_NewFile.Name = "Button_NewFile";
             this.Button_NewFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.Button_NewFile.Size = new System.Drawing.Size(270, 34);
+            this.Button_NewFile.Size = new System.Drawing.Size(225, 34);
             this.Button_NewFile.Text = "&New";
             this.Button_NewFile.Click += new System.EventHandler(this.NewFile_Click);
             // 
@@ -117,21 +119,21 @@
             this.Button_OpenFile.ImageTransparentColor = System.Drawing.Color.Black;
             this.Button_OpenFile.Name = "Button_OpenFile";
             this.Button_OpenFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Button_OpenFile.Size = new System.Drawing.Size(270, 34);
+            this.Button_OpenFile.Size = new System.Drawing.Size(225, 34);
             this.Button_OpenFile.Text = "&Open";
             // 
             // Open_FromFile
             // 
             this.Open_FromFile.Name = "Open_FromFile";
             this.Open_FromFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.Open_FromFile.Size = new System.Drawing.Size(270, 34);
+            this.Open_FromFile.Size = new System.Drawing.Size(264, 34);
             this.Open_FromFile.Text = "From File...";
             this.Open_FromFile.Click += new System.EventHandler(this.Open_FromFile_Click);
             // 
             // Open_FromDevice
             // 
             this.Open_FromDevice.Name = "Open_FromDevice";
-            this.Open_FromDevice.Size = new System.Drawing.Size(225, 34);
+            this.Open_FromDevice.Size = new System.Drawing.Size(264, 34);
             this.Open_FromDevice.Text = "From Device...";
             // 
             // Button_SaveFile
@@ -143,22 +145,29 @@
             this.Button_SaveFile.ImageTransparentColor = System.Drawing.Color.Black;
             this.Button_SaveFile.Name = "Button_SaveFile";
             this.Button_SaveFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Button_SaveFile.Size = new System.Drawing.Size(270, 34);
+            this.Button_SaveFile.Size = new System.Drawing.Size(225, 34);
             this.Button_SaveFile.Text = "&Save";
             // 
             // Save_ToFile
             // 
             this.Save_ToFile.Name = "Save_ToFile";
             this.Save_ToFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.Save_ToFile.Size = new System.Drawing.Size(270, 34);
+            this.Save_ToFile.Size = new System.Drawing.Size(236, 34);
             this.Save_ToFile.Text = "To File...";
             this.Save_ToFile.Click += new System.EventHandler(this.Save_ToFile_Click);
             // 
             // Save_ToDevice
             // 
             this.Save_ToDevice.Name = "Save_ToDevice";
-            this.Save_ToDevice.Size = new System.Drawing.Size(201, 34);
+            this.Save_ToDevice.Size = new System.Drawing.Size(236, 34);
             this.Save_ToDevice.Text = "To Device...";
+            // 
+            // Button_SaveAsFile
+            // 
+            this.Button_SaveAsFile.Name = "Button_SaveAsFile";
+            this.Button_SaveAsFile.Size = new System.Drawing.Size(225, 34);
+            this.Button_SaveAsFile.Text = "Save As...";
+            this.Button_SaveAsFile.Click += new System.EventHandler(this.SaveAsFile_Click);
             // 
             // Button_CloseFile
             // 
@@ -198,7 +207,7 @@
             this.cutToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.cutToolStripMenuItem.Name = "cutToolStripMenuItem";
             this.cutToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.X)));
-            this.cutToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.cutToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
             this.cutToolStripMenuItem.Text = "Cu&t";
             this.cutToolStripMenuItem.Click += new System.EventHandler(this.CutToolStripMenuItem_Click);
             // 
@@ -208,7 +217,7 @@
             this.copyToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
             this.copyToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
-            this.copyToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
             // 
@@ -218,20 +227,20 @@
             this.pasteToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Black;
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
-            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.pasteToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
             this.pasteToolStripMenuItem.Text = "&Paste";
             this.pasteToolStripMenuItem.Click += new System.EventHandler(this.PasteToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(245, 6);
             // 
             // selectAllToolStripMenuItem
             // 
             this.selectAllToolStripMenuItem.Name = "selectAllToolStripMenuItem";
             this.selectAllToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
-            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.selectAllToolStripMenuItem.Size = new System.Drawing.Size(248, 34);
             this.selectAllToolStripMenuItem.Text = "Select &All";
             // 
             // viewMenu
@@ -314,6 +323,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(198, 34);
             this.aboutToolStripMenuItem.Text = "&About ... ...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // Main_MenuStrip
             // 
@@ -355,7 +365,6 @@
         }
         #endregion
         private System.Windows.Forms.StatusStrip Main_Status;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem fileMenu;
         private System.Windows.Forms.ToolStripMenuItem Button_NewFile;
@@ -386,6 +395,8 @@
         private System.Windows.Forms.ToolStripMenuItem Open_FromDevice;
         private System.Windows.Forms.ToolStripMenuItem Save_ToFile;
         private System.Windows.Forms.ToolStripMenuItem Save_ToDevice;
+        private System.Windows.Forms.ToolStripMenuItem Button_SaveAsFile;
+        private System.Windows.Forms.ToolStripStatusLabel Text_Status;
     }
 }
 

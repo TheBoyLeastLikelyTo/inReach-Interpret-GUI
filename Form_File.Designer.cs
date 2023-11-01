@@ -33,13 +33,11 @@
             // 
             // Text_FileContents
             // 
-            this.Text_FileContents.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.Text_FileContents.Location = new System.Drawing.Point(18, 18);
+            this.Text_FileContents.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Text_FileContents.Location = new System.Drawing.Point(0, 0);
             this.Text_FileContents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Text_FileContents.Name = "Text_FileContents";
-            this.Text_FileContents.Size = new System.Drawing.Size(1162, 660);
+            this.Text_FileContents.Size = new System.Drawing.Size(1200, 692);
             this.Text_FileContents.TabIndex = 0;
             this.Text_FileContents.Text = "";
             // 
@@ -51,7 +49,9 @@
             this.Controls.Add(this.Text_FileContents);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "Form_File";
-            this.Text = "TransferWindow";
+            this.Text = "File";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form_File_FormClosing);
             this.ResumeLayout(false);
 
         }
